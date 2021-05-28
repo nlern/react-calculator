@@ -3,11 +3,11 @@ import React from 'react';
 const Footer: React.FC = () => {
     return (
         <footer className="border-t">
-            <div className="container mx-auto h-16 py-2 pt-4 flex md:flex-row sm:flex-col justify-center align-center divide-x">
-                <div className="copyright pr-4">
+            <div className="mx-2 h-min-16 py-2 pt-4 flex md:flex-row flex-col justify-center text-center align-center md:divide-x">
+                <div className="copyright p-2 md:pr-4">
                     Copyright © 2021 Shantanu Dutta
                 </div>
-                <div className="attribution pl-4">
+                <div className="attribution md:pl-4 p-2">
                     Icons made by{' '}
                     <a
                         href="https://www.freepik.com"

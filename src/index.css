@@ -5,10 +5,43 @@
 html,
 body {
     height: 100%;
+}
+
+body {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
 #root {
     height: 100%;
+}
+
+.calculator-display,
+.calculator-controls {
+    background-color: #858694;
+}
+
+.calculator-controls > .row {
+    width: 100%;
+    margin-bottom: 1px;
+}
+
+.calculator-controls .calculator-button {
+    background-color: #e0e0e0;
+    color: #000000;
+}
+
+.calculator-controls .calculator-button.orange {
+    background-color: #f5923e;
+    color: #fff;
+}
+
+.calculator-controls .calculator-button > button {
+    width: 25%;
+    margin: 0 1px 0 0;
+}
+
+.calculator-controls .calculator-button.wide {
+    width: 50%;
 }

@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     return (
         <header>
             <nav className="bg-white shadow">
-                <div className="container mx-auto">
+                <div className="container mx-2 sm:mx-4 mx-auto">
                     <div className="flex items-center sm:items-stretch sm:justify-start h-16">
                         <div className="flex-shrink-0 flex items-center">
                             <img
