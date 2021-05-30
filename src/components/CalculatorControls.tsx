@@ -1,52 +1,127 @@
 import React from 'react';
+import CalculatorControlTypesEnum from '../enums/calculator-control-types.enum';
+import { CalculatorPanelRow } from '../interfaces/calculator-panel.interface';
 
 const CalculatorControls: React.FC = () => {
-    const panelGrid: {
-        rowId: string;
-        rowItems: { id: string; title: string; type: number }[];
-    }[] = [
+    const panelGrid: CalculatorPanelRow[] = [
         {
             rowId: 'row1',
             rowItems: [
-                { id: 'ac', title: 'AC', type: 1 },
-                { id: 'plusMinus', title: '+/-', type: 1 },
-                { id: 'percent', title: '%', type: 1 },
-                { id: 'opDivide', title: '÷', type: 2 },
+                {
+                    id: 'ac',
+                    title: 'AC',
+                    type: CalculatorControlTypesEnum.special,
+                },
+                {
+                    id: 'plusMinus',
+                    title: '+/-',
+                    type: CalculatorControlTypesEnum.special,
+                },
+                {
+                    id: 'percent',
+                    title: '%',
+                    type: CalculatorControlTypesEnum.special,
+                },
+                {
+                    id: 'opDivide',
+                    title: '÷',
+                    type: CalculatorControlTypesEnum.operator,
+                },
             ],
         },
         {
             rowId: 'row2',
             rowItems: [
-                { id: 'digit7', title: '7', type: 1 },
-                { id: 'digit8', title: '8', type: 1 },
-                { id: 'digit9', title: '9', type: 1 },
-                { id: 'opMult', title: 'x', type: 2 },
+                {
+                    id: 'digit7',
+                    title: '7',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'digit8',
+                    title: '8',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'digit9',
+                    title: '9',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'opMult',
+                    title: 'x',
+                    type: CalculatorControlTypesEnum.operator,
+                },
             ],
         },
         {
             rowId: 'row3',
             rowItems: [
-                { id: 'digit4', title: '4', type: 1 },
-                { id: 'digit5', title: '5', type: 1 },
-                { id: 'digit6', title: '6', type: 1 },
-                { id: 'opSub', title: '-', type: 2 },
+                {
+                    id: 'digit4',
+                    title: '4',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'digit5',
+                    title: '5',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'digit6',
+                    title: '6',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'opSub',
+                    title: '-',
+                    type: CalculatorControlTypesEnum.operator,
+                },
             ],
         },
         {
             rowId: 'row4',
             rowItems: [
-                { id: 'digit1', title: '1', type: 1 },
-                { id: 'digit2', title: '2', type: 1 },
-                { id: 'digit3', title: '3', type: 1 },
-                { id: 'opAdd', title: '+', type: 2 },
+                {
+                    id: 'digit1',
+                    title: '1',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'digit2',
+                    title: '2',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'digit3',
+                    title: '3',
+                    type: CalculatorControlTypesEnum.digit,
+                },
+                {
+                    id: 'opAdd',
+                    title: '+',
+                    type: CalculatorControlTypesEnum.operator,
+                },
             ],
         },
         {
             rowId: 'row5',
             rowItems: [
-                { id: 'digit0', title: '0', type: 3 },
-                { id: 'digitDot', title: '.', type: 1 },
-                { id: 'opEval', title: '=', type: 2 },
+                {
+                    id: 'digit0',
+                    title: '0',
+                    type: CalculatorControlTypesEnum.digitWide,
+                },
+                {
+                    id: 'digitDot',
+                    title: '.',
+                    type: CalculatorControlTypesEnum.special,
+                },
+                {
+                    id: 'opEval',
+                    title: '=',
+                    type: CalculatorControlTypesEnum.operator,
+                },
             ],
         },
     ];
@@ -62,8 +137,16 @@ const CalculatorControls: React.FC = () => {
                             return (
                                 <div
                                     className={`calculator-button inline-flex ${
-                                        type === 2 ? 'orange' : ''
-                                    } ${type === 3 ? 'wide' : 'flex-1'}`}
+                                        type ===
+                                        CalculatorControlTypesEnum.operator
+                                            ? 'orange'
+                                            : ''
+                                    } ${
+                                        type ===
+                                        CalculatorControlTypesEnum.digitWide
+                                            ? 'wide'
+                                            : 'flex-1'
+                                    }`}
                                     key={id}
                                 >
                                     <button
