@@ -4,6 +4,7 @@ export interface CaclculatorPanelRowItem {
     id: string;
     title: string;
     type: CalculatoControlTypesEnum;
+    value: string | number;
 }
 
 export interface CalculatorPanelRow {
