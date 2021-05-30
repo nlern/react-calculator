@@ -17,6 +17,10 @@ body {
     height: 100%;
 }
 
+.calculator {
+    height: calc(100vh - 66px);
+}
+
 .calculator-display,
 .calculator-controls {
     background-color: #858694;
