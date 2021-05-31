@@ -1,12 +1,13 @@
 import React from 'react';
 import CalculatorControlTypesEnum from '../enums/calculator-control-types.enum';
+import CalculatorOperatorTypesEnum from '../enums/calculator-operator-types.enum';
 import { CalculatorPanelRow } from '../interfaces/calculator-panel.interface';
 
 export interface CalculatorControlsProps {
     onBtnClick: (param: {
         id: string;
         type: CalculatorControlTypesEnum;
-        value: string | number;
+        value: CalculatorOperatorTypesEnum | number | '.';
     }) => void;
 }
 
@@ -20,26 +21,26 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                 {
                     id: 'ac',
                     title: 'AC',
-                    type: CalculatorControlTypesEnum.special,
-                    value: '',
+                    type: CalculatorControlTypesEnum.SpecialOperator,
+                    value: CalculatorOperatorTypesEnum.AllClear,
                 },
                 {
                     id: 'plusMinus',
                     title: '+/-',
-                    type: CalculatorControlTypesEnum.special,
-                    value: '',
+                    type: CalculatorControlTypesEnum.SpecialOperator,
+                    value: CalculatorOperatorTypesEnum.ChangeSign,
                 },
                 {
                     id: 'percent',
                     title: '%',
-                    type: CalculatorControlTypesEnum.special,
-                    value: '',
+                    type: CalculatorControlTypesEnum.SpecialOperator,
+                    value: CalculatorOperatorTypesEnum.Percent,
                 },
                 {
                     id: 'opDivide',
                     title: '÷',
-                    type: CalculatorControlTypesEnum.operator,
-                    value: '',
+                    type: CalculatorControlTypesEnum.Operator,
+                    value: CalculatorOperatorTypesEnum.Divide,
                 },
             ],
         },
@@ -49,26 +50,26 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                 {
                     id: 'digit7',
                     title: '7',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 7,
                 },
                 {
                     id: 'digit8',
                     title: '8',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 8,
                 },
                 {
                     id: 'digit9',
                     title: '9',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 9,
                 },
                 {
                     id: 'opMult',
                     title: 'x',
-                    type: CalculatorControlTypesEnum.operator,
-                    value: '',
+                    type: CalculatorControlTypesEnum.Operator,
+                    value: CalculatorOperatorTypesEnum.Multiply,
                 },
             ],
         },
@@ -78,26 +79,26 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                 {
                     id: 'digit4',
                     title: '4',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 4,
                 },
                 {
                     id: 'digit5',
                     title: '5',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 5,
                 },
                 {
                     id: 'digit6',
                     title: '6',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 6,
                 },
                 {
                     id: 'opSub',
                     title: '-',
-                    type: CalculatorControlTypesEnum.operator,
-                    value: '',
+                    type: CalculatorControlTypesEnum.Operator,
+                    value: CalculatorOperatorTypesEnum.Subtract,
                 },
             ],
         },
@@ -107,26 +108,26 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                 {
                     id: 'digit1',
                     title: '1',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 1,
                 },
                 {
                     id: 'digit2',
                     title: '2',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 2,
                 },
                 {
                     id: 'digit3',
                     title: '3',
-                    type: CalculatorControlTypesEnum.digit,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 3,
                 },
                 {
                     id: 'opAdd',
                     title: '+',
-                    type: CalculatorControlTypesEnum.operator,
-                    value: '',
+                    type: CalculatorControlTypesEnum.Operator,
+                    value: CalculatorOperatorTypesEnum.Add,
                 },
             ],
         },
@@ -136,20 +137,21 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                 {
                     id: 'digit0',
                     title: '0',
-                    type: CalculatorControlTypesEnum.digitWide,
+                    type: CalculatorControlTypesEnum.Digit,
                     value: 0,
+                    isWide: true,
                 },
                 {
                     id: 'digitDot',
                     title: '.',
-                    type: CalculatorControlTypesEnum.special,
-                    value: '',
+                    type: CalculatorControlTypesEnum.Dot,
+                    value: '.',
                 },
                 {
                     id: 'opEval',
                     title: '=',
-                    type: CalculatorControlTypesEnum.operator,
-                    value: '',
+                    type: CalculatorControlTypesEnum.Operator,
+                    value: CalculatorOperatorTypesEnum.Evaluate,
                 },
             ],
         },
@@ -162,20 +164,15 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                         className="flex-1 flex flex-row row gap-px"
                         key={rowId}
                     >
-                        {rowItems.map(({ id, title, type, value }) => {
+                        {rowItems.map(({ id, title, type, value, isWide }) => {
                             return (
                                 <div
                                     className={`calculator-button inline-flex ${
                                         type ===
-                                        CalculatorControlTypesEnum.operator
+                                        CalculatorControlTypesEnum.Operator
                                             ? 'orange'
                                             : ''
-                                    } ${
-                                        type ===
-                                        CalculatorControlTypesEnum.digitWide
-                                            ? 'wide'
-                                            : 'flex-1'
-                                    }`}
+                                    } ${isWide ? 'wide' : 'flex-1'}`}
                                     key={id}
                                 >
                                     <button

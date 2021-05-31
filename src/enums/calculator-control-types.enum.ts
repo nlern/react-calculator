@@ -1,8 +1,8 @@
-enum CalculatoControlTypesEnum {
-    digit,
-    operator,
-    special,
-    digitWide,
+enum CalculatorControlTypesEnum {
+    Digit,
+    Operator,
+    Dot,
+    SpecialOperator,
 }
 
-export default CalculatoControlTypesEnum;
+export default CalculatorControlTypesEnum;

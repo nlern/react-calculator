@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CalculatorControlTypesEnum from '../enums/calculator-control-types.enum';
+import CalculatorOperatorTypesEnum from '../enums/calculator-operator-types.enum';
 import CalculatorControls from './CalculatorControls';
 import CalculatorDisplay from './CalculatorDisplay';
 
@@ -15,18 +16,17 @@ const Calculator: React.FC = () => {
     }: {
         id: string;
         type: CalculatorControlTypesEnum;
-        value: string | number;
+        value: CalculatorOperatorTypesEnum | number | '.';
     }) => {
         switch (type) {
-            case CalculatorControlTypesEnum.operator:
+            case CalculatorControlTypesEnum.Operator:
                 setOperator(id);
                 break;
 
-            case CalculatorControlTypesEnum.digitWide:
-            case CalculatorControlTypesEnum.digit: {
+            case CalculatorControlTypesEnum.Digit: {
                 const operand = operator !== null ? operand2 : operand1;
                 const operandStr = operand.toString();
-                const digitStr = value.toString();
+                const digitStr = value?.toString();
                 const newOperandStr = `${operandStr}${digitStr}`;
                 let newOperand = Number(newOperandStr);
                 if (Number.isFinite(newOperand) === false) {
