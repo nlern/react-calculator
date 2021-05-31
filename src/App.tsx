@@ -5,7 +5,9 @@ import Layout from './components/Layout';
 const App: React.FC = () => {
     return (
         <Layout>
-            <Calculator />
+            <div className="calculator flex flex-col">
+                <Calculator />
+            </div>
         </Layout>
     );
 };
