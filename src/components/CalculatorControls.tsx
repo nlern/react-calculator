@@ -176,6 +176,7 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                                     key={id}
                                 >
                                     <button
+                                        id={id}
                                         type="button"
                                         className="flex-1 text-6xl rounded-none"
                                         onClick={() =>
