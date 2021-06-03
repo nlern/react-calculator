@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import CalculatorControlTypesEnum from '../enums/calculator-control-types.enum';
 import CalculatorOperatorTypesEnum from '../enums/calculator-operator-types.enum';
+import add from '../utils/calculation/add';
+import multiply from '../utils/calculation/multiply';
 import CalculatorControls from './CalculatorControls';
 import CalculatorDisplay from './CalculatorDisplay';
 
@@ -9,6 +11,12 @@ const Calculator: React.FC = () => {
     const [operand2, setOperand2] = useState<number>(0);
     const [operator, setOperator] =
         useState<CalculatorOperatorTypesEnum | null>(null);
+
+    const updateResult = (result: number): void => {
+        setOperand1(result);
+        setOperand2(0);
+        setOperator(null);
+    };
 
     const handlePanelButtonClick = ({
         type,
@@ -24,16 +32,23 @@ const Calculator: React.FC = () => {
                     setOperator(value as CalculatorOperatorTypesEnum);
                     break;
                 }
-                if (operand1 && operand2 && operator) {
+                if (
+                    operand1 !== null &&
+                    operand2 !== null &&
+                    operator !== null
+                ) {
                     switch (operator) {
                         case CalculatorOperatorTypesEnum.Add: {
-                            const result = operand1 + operand2;
-                            setOperand1(result);
-                            setOperand2(0);
-                            setOperator(null);
+                            const result = add(operand1, operand2);
+                            updateResult(result);
                             break;
                         }
 
+                        case CalculatorOperatorTypesEnum.Multiply: {
+                            const result = multiply(operand1, operand2);
+                            updateResult(result);
+                            break;
+                        }
                         default:
                             break;
                     }
