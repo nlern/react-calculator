@@ -36,6 +36,10 @@ const Calculator: React.FC = () => {
         switch (type) {
             case CalculatorControlTypesEnum.SpecialOperator:
                 switch (value as CalculatorSpecialOperatorTypesEnum) {
+                    case CalculatorSpecialOperatorTypesEnum.AllClear: {
+                        updateResult(0);
+                        return;
+                    }
                     case CalculatorSpecialOperatorTypesEnum.ChangeSign: {
                         if (operand2) {
                             setOperand2(-operand2);
