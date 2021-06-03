@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CalculatorControlTypesEnum from '../enums/calculator-control-types.enum';
 import CalculatorOperatorTypesEnum from '../enums/calculator-operator-types.enum';
 import add from '../utils/calculation/add';
+import divide from '../utils/calculation/divide';
 import multiply from '../utils/calculation/multiply';
 import CalculatorControls from './CalculatorControls';
 import CalculatorDisplay from './CalculatorDisplay';
@@ -49,6 +50,17 @@ const Calculator: React.FC = () => {
                             updateResult(result);
                             break;
                         }
+
+                        case CalculatorOperatorTypesEnum.Divide: {
+                            try {
+                                const result = divide(operand1, operand2);
+                                updateResult(result);
+                            } catch (error) {
+                                break;
+                            }
+                            break;
+                        }
+
                         default:
                             break;
                     }
