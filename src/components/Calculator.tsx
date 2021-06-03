@@ -36,6 +36,14 @@ const Calculator: React.FC = () => {
         switch (type) {
             case CalculatorControlTypesEnum.SpecialOperator:
                 switch (value as CalculatorSpecialOperatorTypesEnum) {
+                    case CalculatorSpecialOperatorTypesEnum.ChangeSign: {
+                        if (operand2) {
+                            setOperand2(-operand2);
+                        } else if (operand1) {
+                            setOperand1(-operand1);
+                        }
+                        return;
+                    }
                     case CalculatorSpecialOperatorTypesEnum.Percent:
                         if (operand2) {
                             const newOp = divide(operand2, 100);
