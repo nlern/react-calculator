@@ -4,6 +4,7 @@ import CalculatorOperatorTypesEnum from '../enums/calculator-operator-types.enum
 import add from '../utils/calculation/add';
 import divide from '../utils/calculation/divide';
 import multiply from '../utils/calculation/multiply';
+import subtract from '../utils/calculation/subtract';
 import CalculatorControls from './CalculatorControls';
 import CalculatorDisplay from './CalculatorDisplay';
 
@@ -41,6 +42,12 @@ const Calculator: React.FC = () => {
                     switch (operator) {
                         case CalculatorOperatorTypesEnum.Add: {
                             const result = add(operand1, operand2);
+                            updateResult(result);
+                            break;
+                        }
+
+                        case CalculatorOperatorTypesEnum.Subtract: {
+                            const result = subtract(operand1, operand2);
                             updateResult(result);
                             break;
                         }
