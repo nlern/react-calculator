@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CalculatorControlTypesEnum from '../enums/calculator-control-types.enum';
 import CalculatorOperatorTypesEnum from '../enums/calculator-operator-types.enum';
+import CalculatorSpecialOperatorTypesEnum from '../enums/calculator-special-operator-types.enum';
 import add from '../utils/calculation/add';
 import divide from '../utils/calculation/divide';
 import multiply from '../utils/calculation/multiply';
@@ -26,13 +27,32 @@ const Calculator: React.FC = () => {
     }: {
         id: string;
         type: CalculatorControlTypesEnum;
-        value: CalculatorOperatorTypesEnum | number | '.';
+        value:
+            | CalculatorSpecialOperatorTypesEnum
+            | CalculatorOperatorTypesEnum
+            | number
+            | '.';
     }) => {
         switch (type) {
+            case CalculatorControlTypesEnum.SpecialOperator:
+                switch (value as CalculatorSpecialOperatorTypesEnum) {
+                    case CalculatorSpecialOperatorTypesEnum.Percent:
+                        if (operand2) {
+                            const newOp = divide(operand2, 100);
+                            setOperand2(newOp);
+                        } else if (operand1) {
+                            const newOp = divide(operand1, 100);
+                            setOperand1(newOp);
+                        }
+                        return;
+
+                    default:
+                        return;
+                }
             case CalculatorControlTypesEnum.Operator:
                 if (value !== CalculatorOperatorTypesEnum.Evaluate) {
                     setOperator(value as CalculatorOperatorTypesEnum);
-                    break;
+                    return;
                 }
                 if (
                     operand1 !== null &&
@@ -43,19 +63,19 @@ const Calculator: React.FC = () => {
                         case CalculatorOperatorTypesEnum.Add: {
                             const result = add(operand1, operand2);
                             updateResult(result);
-                            break;
+                            return;
                         }
 
                         case CalculatorOperatorTypesEnum.Subtract: {
                             const result = subtract(operand1, operand2);
                             updateResult(result);
-                            break;
+                            return;
                         }
 
                         case CalculatorOperatorTypesEnum.Multiply: {
                             const result = multiply(operand1, operand2);
                             updateResult(result);
-                            break;
+                            return;
                         }
 
                         case CalculatorOperatorTypesEnum.Divide: {
@@ -63,16 +83,16 @@ const Calculator: React.FC = () => {
                                 const result = divide(operand1, operand2);
                                 updateResult(result);
                             } catch (error) {
-                                break;
+                                return;
                             }
-                            break;
+                            return;
                         }
 
                         default:
-                            break;
+                            return;
                     }
                 }
-                break;
+                return;
 
             case CalculatorControlTypesEnum.Digit: {
                 const operand = operator !== null ? operand2 : operand1;

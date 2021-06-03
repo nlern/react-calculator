@@ -1,7 +1,7 @@
 enum CalculatorSpecialOperatorTypesEnum {
     AllClear,
     ChangeSign,
-    PlusMinus,
+    Percent,
 }
 
 export default CalculatorSpecialOperatorTypesEnum;

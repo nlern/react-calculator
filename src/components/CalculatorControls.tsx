@@ -1,13 +1,18 @@
 import React from 'react';
 import CalculatorControlTypesEnum from '../enums/calculator-control-types.enum';
 import CalculatorOperatorTypesEnum from '../enums/calculator-operator-types.enum';
+import CalculatorSpecialOperatorTypesEnum from '../enums/calculator-special-operator-types.enum';
 import { CalculatorPanelRow } from '../interfaces/calculator-panel.interface';
 
 export interface CalculatorControlsProps {
     onBtnClick: (param: {
         id: string;
         type: CalculatorControlTypesEnum;
-        value: CalculatorOperatorTypesEnum | number | '.';
+        value:
+            | CalculatorSpecialOperatorTypesEnum
+            | CalculatorOperatorTypesEnum
+            | number
+            | '.';
     }) => void;
 }
 
@@ -22,19 +27,19 @@ const CalculatorControls: React.FC<CalculatorControlsProps> = ({
                     id: 'ac',
                     title: 'AC',
                     type: CalculatorControlTypesEnum.SpecialOperator,
-                    value: CalculatorOperatorTypesEnum.AllClear,
+                    value: CalculatorSpecialOperatorTypesEnum.AllClear,
                 },
                 {
                     id: 'plusMinus',
                     title: '+/-',
                     type: CalculatorControlTypesEnum.SpecialOperator,
-                    value: CalculatorOperatorTypesEnum.ChangeSign,
+                    value: CalculatorSpecialOperatorTypesEnum.ChangeSign,
                 },
                 {
                     id: 'percent',
                     title: '%',
                     type: CalculatorControlTypesEnum.SpecialOperator,
-                    value: CalculatorOperatorTypesEnum.Percent,
+                    value: CalculatorSpecialOperatorTypesEnum.Percent,
                 },
                 {
                     id: 'opDivide',
