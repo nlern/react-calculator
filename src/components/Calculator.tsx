@@ -7,10 +7,10 @@ import CalculatorDisplay from './CalculatorDisplay';
 const Calculator: React.FC = () => {
     const [operand1, setOperand1] = useState<number>(0);
     const [operand2, setOperand2] = useState<number>(0);
-    const [operator, setOperator] = useState<string | null>(null);
+    const [operator, setOperator] =
+        useState<CalculatorOperatorTypesEnum | null>(null);
 
     const handlePanelButtonClick = ({
-        id,
         type,
         value,
     }: {
@@ -20,7 +20,24 @@ const Calculator: React.FC = () => {
     }) => {
         switch (type) {
             case CalculatorControlTypesEnum.Operator:
-                setOperator(id);
+                if (value !== CalculatorOperatorTypesEnum.Evaluate) {
+                    setOperator(value as CalculatorOperatorTypesEnum);
+                    break;
+                }
+                if (operand1 && operand2 && operator) {
+                    switch (operator) {
+                        case CalculatorOperatorTypesEnum.Add: {
+                            const result = operand1 + operand2;
+                            setOperand1(result);
+                            setOperand2(0);
+                            setOperator(null);
+                            break;
+                        }
+
+                        default:
+                            break;
+                    }
+                }
                 break;
 
             case CalculatorControlTypesEnum.Digit: {
