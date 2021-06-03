@@ -4,9 +4,6 @@ enum CalculatorOperatorTypesEnum {
     Subtract,
     Multiply,
     Divide,
-    ChangeSign,
-    Percent,
-    AllClear,
 }
 
 export default CalculatorOperatorTypesEnum;
