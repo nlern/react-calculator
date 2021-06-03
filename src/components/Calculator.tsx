@@ -10,12 +10,17 @@ import CalculatorControls from './CalculatorControls';
 import CalculatorDisplay from './CalculatorDisplay';
 
 const Calculator: React.FC = () => {
+    const [display, setDisplay] = useState<string>('0');
     const [operand1, setOperand1] = useState<number>(0);
     const [operand2, setOperand2] = useState<number>(0);
     const [operator, setOperator] =
         useState<CalculatorOperatorTypesEnum | null>(null);
 
     const updateResult = (result: number): void => {
+        const displayResult = Number.isInteger(result)
+            ? result.toString()
+            : result.toFixed(5);
+        setDisplay(displayResult);
         setOperand1(result);
         setOperand2(0);
         setOperator(null);
@@ -41,22 +46,30 @@ const Calculator: React.FC = () => {
                         return;
                     }
                     case CalculatorSpecialOperatorTypesEnum.ChangeSign: {
-                        if (operand2) {
-                            setOperand2(-operand2);
-                        } else if (operand1) {
-                            setOperand1(-operand1);
+                        const operand = Number.parseFloat(display);
+                        const newOperand = -operand;
+                        setDisplay(newOperand.toString());
+                        if (operator) {
+                            setOperand2(newOperand);
+                        } else {
+                            setOperand1(newOperand);
                         }
                         return;
                     }
-                    case CalculatorSpecialOperatorTypesEnum.Percent:
-                        if (operand2) {
-                            const newOp = divide(operand2, 100);
-                            setOperand2(newOp);
-                        } else if (operand1) {
-                            const newOp = divide(operand1, 100);
-                            setOperand1(newOp);
+                    case CalculatorSpecialOperatorTypesEnum.Percent: {
+                        const operand = Number.parseFloat(display);
+                        if (operand === 0) {
+                            return;
+                        }
+                        const newOperand = divide(operand, 100);
+                        setDisplay(newOperand.toString());
+                        if (operator) {
+                            setOperand2(newOperand);
+                        } else {
+                            setOperand1(newOperand);
                         }
                         return;
+                    }
 
                     default:
                         return;
@@ -64,6 +77,7 @@ const Calculator: React.FC = () => {
             case CalculatorControlTypesEnum.Operator:
                 if (value !== CalculatorOperatorTypesEnum.Evaluate) {
                     setOperator(value as CalculatorOperatorTypesEnum);
+                    setDisplay('0');
                     return;
                 }
                 if (
@@ -107,20 +121,29 @@ const Calculator: React.FC = () => {
                 return;
 
             case CalculatorControlTypesEnum.Digit: {
-                const operand = operator !== null ? operand2 : operand1;
-                const operandStr = operand.toString();
+                const operandStr = display;
                 const digitStr = value?.toString();
                 const newOperandStr = `${operandStr}${digitStr}`;
                 let newOperand = Number(newOperandStr);
                 if (Number.isFinite(newOperand) === false) {
                     newOperand = 0;
                 }
-
+                setDisplay(newOperand.toString());
                 if (operator !== null) {
                     setOperand2(newOperand);
                 } else {
                     setOperand1(newOperand);
                 }
+
+                break;
+            }
+
+            case CalculatorControlTypesEnum.Dot: {
+                if (display.includes('.')) {
+                    return;
+                }
+                const newDisplay = `${display}.`;
+                setDisplay(newDisplay);
 
                 break;
             }
@@ -131,7 +154,7 @@ const Calculator: React.FC = () => {
 
     return (
         <div className="h-full flex flex-col">
-            <CalculatorDisplay content={operator ? operand2 : operand1} />
+            <CalculatorDisplay content={display} />
             <CalculatorControls onBtnClick={handlePanelButtonClick} />
         </div>
     );

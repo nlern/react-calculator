@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface CalculatorDisplayProps {
-    content: number;
+    content: string;
 }
 
 const CalculatorDisplay: React.FC<CalculatorDisplayProps> = ({ content }) => {
