@@ -17,9 +17,10 @@ const Calculator: React.FC = () => {
         useState<CalculatorOperatorTypesEnum | null>(null);
 
     const updateResult = (result: number): void => {
-        const displayResult = Number.isInteger(result)
-            ? result.toString()
-            : result.toFixed(5);
+        const updatedResult = result < 0.000001 ? 0 : result;
+        const displayResult = Number.isInteger(updatedResult)
+            ? updatedResult.toString()
+            : updatedResult.toFixed(5);
         setDisplay(displayResult);
         setOperand1(result);
         setOperand2(0);
@@ -61,8 +62,13 @@ const Calculator: React.FC = () => {
                         if (operand === 0) {
                             return;
                         }
-                        const newOperand = divide(operand, 100);
-                        setDisplay(newOperand.toString());
+                        const percent = divide(operand, 100);
+                        const newOperand = percent < 0.000001 ? 0 : percent;
+                        setDisplay(
+                            Number.isInteger(newOperand)
+                                ? newOperand.toString()
+                                : newOperand.toFixed(5),
+                        );
                         if (operator) {
                             setOperand2(newOperand);
                         } else {
